@@ -7,13 +7,13 @@ title: Hexo
 subtitle: ''
 description: ''
 keywords:
-author: John Doe
+author: ZYH
 language: en
 timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
+url: https://toothacher.github.io #http://example.com
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -96,7 +96,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: just the docs
+theme: next
 
 
 # Deployment
@@ -106,3 +106,11 @@ deploy:
   repository: git@github.com:Toothacher/Toothacher.github.io.git
   branch: main
   
+# Math 
+math:
+  every_page: false # 节省资源，只在需要时开启
+  mathjax:
+    enable: true
+    tags: 'none' # 或者 'ams' 如果你需要公式自动编号
+    # 下面这行很重要，确保渲染引擎版本匹配
+    cdn: https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML

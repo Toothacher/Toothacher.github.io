@@ -1,0 +1,34 @@
+name: Hexo Deploy
+
+on:
+  push:
+    branches:
+      - main  # 这里的名字需对应你存放源码的分支（通常是 main 或 master）
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Deploy Hexo
+      env:
+        # 这里的名字要和你在第二步设置的 Secret 名字一致
+        GH_TOKEN: ${{ secrets.Hexo_Deploy_Key }} 
+      run: |
+        git config --global user.name "Your Name"
+        git config --global user.email "your_email@example.com"
+        # 使用 Token 替换原本的推送地址进行部署
+        sed -i "s|github.com|${GH_TOKEN}@github.com|g" _config.yml
+        npx hexo clean
+        npx hexo deploy
