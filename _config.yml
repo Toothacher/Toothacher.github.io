@@ -110,7 +110,7 @@ deploy:
 math:
   every_page: false # 节省资源，只在需要时开启
   mathjax:
-    enable: false
+    enable: true
     tags: 'none' # 或者 'ams' 如果你需要公式自动编号
     # 下面这行很重要，确保渲染引擎版本匹配
     cdn: https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML
