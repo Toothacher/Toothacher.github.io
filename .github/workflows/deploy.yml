@@ -28,9 +28,9 @@ jobs:
       env:
         # 这里的名字要和你在第二步设置的 Secret 名字一致
         GH_TOKEN: ${{ secrets.HEXO_DEPLOY_KEY }} #${{ secrets.Hexo_Deploy_Key }} 
-      run: | #使用 Token 替换原本的推送地址进行部署
+      run: |
         git config --global user.name "Toothacher"
         git config --global user.email "1943069247@qq.com"
-        sed -i "s|github.com|${GH_TOKEN}@github.com|g" _config.yml 
+        sed -i "s|github.com|${GH_TOKEN}@github.com|g" _config.yml
         npx hexo clean
         npx hexo deploy
