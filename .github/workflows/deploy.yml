@@ -12,6 +12,9 @@ jobs:
     steps:
     - name: Checkout source
       uses: actions/checkout@v3
+      # with:
+      #   submodules: true #把仓库里的子模块（主题）也一起拉下来
+      #   fetch-depth: 0   # 确保拉取完整历史
 
     - name: Setup Node.js
       uses: actions/setup-node@v3
@@ -25,10 +28,9 @@ jobs:
       env:
         # 这里的名字要和你在第二步设置的 Secret 名字一致
         GH_TOKEN: ${{ secrets.HEXO_DEPLOY_KEY }} #${{ secrets.Hexo_Deploy_Key }} 
-      run: |
+      run: #使用 Token 替换原本的推送地址进行部署|
         git config --global user.name "Your Name"
         git config --global user.email "your_email@example.com"
-        # 使用 Token 替换原本的推送地址进行部署
-        sed -i "s|github.com|${GH_TOKEN}@github.com|g" _config.yml
+        sed -i "s|github.com|${GH_TOKEN}@github.com|g" _config.yml 
         npx hexo clean
         npx hexo deploy
