@@ -3,7 +3,7 @@ name: Hexo Deploy
 on:
   push:
     branches:
-      - main  # 这里的名字需对应你存放源码的分支（通常是 main 或 master）
+      - source  # 这里的名字需对应你存放源码的分支（通常是 main 或 master）
 
 jobs:
   build:
@@ -24,7 +24,7 @@ jobs:
     - name: Deploy Hexo
       env:
         # 这里的名字要和你在第二步设置的 Secret 名字一致
-        GH_TOKEN: ${{ secrets.Hexo_Deploy_Key }} 
+        GH_TOKEN: ${{ secrets.HEXO_DEPLOY_KEY }} 
       run: |
         git config --global user.name "Your Name"
         git config --global user.email "your_email@example.com"
