@@ -3,7 +3,7 @@ name: Hexo Deploy
 on:
   push:
     branches:
-      - source  # 这里的名字需对应你存放源码的分支（通常是 main 或 master）
+      - source
 
 jobs:
   build:
@@ -11,26 +11,30 @@ jobs:
 
     steps:
     - name: Checkout source
-      uses: actions/checkout@v3
-      # with:
-      #   submodules: true #把仓库里的子模块（主题）也一起拉下来
-      #   fetch-depth: 0   # 确保拉取完整历史
+      uses: actions/checkout@v4
+      with:
+        submodules: false # 我们之前已经确认改为 false
+        fetch-depth: 0
 
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
-        node-version: '20' # 选择适合 Hexo 的 Node.js 版本
+        node-version: '20' # 使用最新的长期支持版
+        cache: 'npm'
 
     - name: Install dependencies
-      run: npm install
-
-    - name: Deploy Hexo
-      env:
-        # 这里的名字要和你在第二步设置的 Secret 名字一致
-        GH_TOKEN: ${{ secrets.HEXO_DEPLOY_KEY }}  # ${{ secrets.Hexo_Deploy_Key }}   
       run: |
-        git config --global user.name "Toothacher"
-        git config --global user.email "1943069247@qq.com"
-        sed -i "s|github.com|${GH_TOKEN}@github.com|g" _config.yml
+        npm install
+        npm install strip-ansi@6.0.1 # 强制解决那个 ESM 报错
+
+    - name: Build Hexo
+      run: |
         npx hexo clean
-        npx hexo deploy
+        npx hexo generate
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.HEXO_DEPLOY_KEY }}
+        publish_dir: ./public # 部署 generate 生成的目录
+        publish_branch: main # 你的展示分支
