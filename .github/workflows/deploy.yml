@@ -16,7 +16,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '18'
+        node-version: '16'
 
     - name: Install dependencies
       run: npm install
@@ -24,7 +24,7 @@ jobs:
     - name: Deploy Hexo
       env:
         # 这里的名字要和你在第二步设置的 Secret 名字一致
-        GH_TOKEN: ${{ secrets.HEXO_DEPLOY_KEY }} 
+        GH_TOKEN: ${{ secrets.HEXO_DEPLOY_KEY }} #${{ secrets.Hexo_Deploy_Key }} 
       run: |
         git config --global user.name "Your Name"
         git config --global user.email "your_email@example.com"
