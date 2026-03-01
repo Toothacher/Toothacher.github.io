@@ -12,9 +12,9 @@ jobs:
     steps:
     - name: Checkout source
       uses: actions/checkout@v3
-      with:
-        submodules: true #把仓库里的子模块（主题）也一起拉下来
-        fetch-depth: 0   # 确保拉取完整历史
+      # with:
+      #   submodules: true #把仓库里的子模块（主题）也一起拉下来
+      #   fetch-depth: 0   # 确保拉取完整历史
 
     - name: Setup Node.js
       uses: actions/setup-node@v3
